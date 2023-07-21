@@ -40,8 +40,30 @@ def scrape_next_page_link(html_content):
 
 # Requisito 4
 def scrape_news(html_content):
-    """Seu código deve vir aqui"""
-    raise NotImplementedError
+    selector = Selector(text=html_content)
+    get_url = selector.css('link[rel="canonical"]::attr(href)').get()
+    get_title = selector.css(".entry-title::text").get().strip("\xa0")
+    get_date = selector.css(".meta-date::text").get()
+    get_writer = selector.css(".author a::text").get()
+    get_reading_time = (
+        selector.css(".meta-reading-time::text").get().split()[0]
+    )
+    get_summary = selector.css(
+        ".entry-content > p:first-of-type *::text"
+    ).getall()
+    get_category = selector.css(".label::text").get()
+    return {
+        "url": get_url,
+        "title": get_title,
+        "timestamp": get_date,
+        "writer": get_writer,
+        "reading_time": int(get_reading_time),
+        "summary": "".join(get_summary).strip(),
+        "category": get_category,
+    }
+
+
+# print(scrape_news("https://blog.betrybe.com/carreira/glossario-de-tecnologia/"))
 
 
 # Requisito 5
