@@ -11,3 +11,4 @@
 <!-- 🤔 [HS] Escrevam as habilidade utilizando a Taxonomia de Bloom. -->
 
 </details>
+# Obrigado pela visita!
